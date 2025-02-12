@@ -56,6 +56,16 @@
         .table thead th {
             text-align: center;
         }
+
+          .fixed-col {
+            width: 200px; /* Set a fixed width for the left column */
+            white-space: nowrap; /* Prevent wrapping */
+        }
+        .flex-col {
+            width: 100%; /* Allow it to take up remaining space */
+            white-space: normal; /* Allow wrapping */
+            word-wrap: break-word; /* Ensure long words break properly */
+        }
     </style>
 </head>
 <body>
@@ -105,6 +115,28 @@
                     </tr>
                 </tbody>
             </table>
+
+
+<div class="container mt-4">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="fixed-col">Fixed Width Column</th>
+                    <th class="flex-col">Flexible Content Column</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="fixed-col">Label</td>
+                    <td class="flex-col">This is a long text that should expand to fit the content and not be restricted in width.</td>
+                </tr>
+                <tr>
+                    <td class="fixed-col">Another Label</td>
+                    <td class="flex-col">Even longer content that needs to fit properly in the right column without constraints.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
         </div>
     </main>
 </div>
