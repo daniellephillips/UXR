@@ -25,7 +25,22 @@
           font-size: 3.5rem;
         }
       }
+
+      #pdf-viewer {
+        border: 1px solid #ddd;
+        padding: 10px;
+        max-width: 800px;
+        margin: 20px auto;
+      }
+
+      canvas {
+        width: 100%;
+        border: 1px solid #ccc;
+      }
     </style>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
 </head>
 <body>
 
@@ -45,6 +60,9 @@
         <h2>Work Samples</h2>
         <p>Along with the work samples listed below, I'm providing STAR Method for each.</p>
 
+        <!-- PDF Viewer -->
+        <div id="pdf-viewer"></div>
+
         <!-- Bootstrap Table -->
         <table class="table table-bordered table-striped">
             <thead class="table-dark">
@@ -56,17 +74,14 @@
             <tbody>
                 <tr>
                     <td>
-                       <!-- <i class="bi bi-list"></i> -->
-                        <a href="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research_for_AI_Workloads_Final-deck.pdf" 
-                           rel="noopener" target="_blank">
-                            Research for AI workloads and competative blind competative analysis story. 
+                        <a href="#" onclick="loadPDF('https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research_for_AI_Workloads_Final-deck.pdf'); return false;">
+                            Research for AI workloads and competitive blind competitive analysis story.
                         </a>
                     </td>
                     <td>Details about Project 1.</td>
                 </tr>
                 <tr>
                     <td>
-                       <!-- <i class="bi bi-list"></i> -->
                         <a href="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case2.html" 
                            rel="noopener" target="_blank">
                             Project 2
@@ -78,6 +93,37 @@
         </table>
     </main>
 </div>
+
+<!-- PDF.js Viewer Script -->
+<script>
+function loadPDF(pdfURL) {
+    document.getElementById('pdf-viewer').innerHTML = ''; // Clear previous PDF
+
+    const loadingTask = pdfjsLib.getDocument(pdfURL);
+    loadingTask.promise.then(pdf => {
+        pdf.getPage(1).then(page => {
+            let scale = 1.5;
+            let viewport = page.getViewport({ scale });
+
+            let canvas = document.createElement("canvas");
+            let context = canvas.getContext("2d");
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+
+            document.getElementById('pdf-viewer').appendChild(canvas);
+
+            let renderContext = {
+                canvasContext: context,
+                viewport: viewport
+            };
+            page.render(renderContext);
+        });
+    }).catch(error => {
+        console.error("Error loading PDF:", error);
+        document.getElementById('pdf-viewer').innerHTML = '<p style="color:red;">Failed to load PDF.</p>';
+    });
+}
+</script>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
