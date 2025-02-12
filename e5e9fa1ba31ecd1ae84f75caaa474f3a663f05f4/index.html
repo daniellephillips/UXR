@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,14 +26,23 @@
         }
       }
 
-.pdf-frame {
-        width: 100%;  /* Make it responsive */
-        height: 600px; /* Increase height for readability */
-        border: 2px solid #ccc; /* Add subtle border */
-        border-radius: 8px; /* Slight rounding for aesthetics */
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
-        padding: 10px; /* Add some spacing */
-    }
+      /* Fix iframe width issues */
+      .pdf-frame-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pdf-frame {
+        width: 900px !important; /* Adjust width as needed */
+        max-width: 100%; /* Ensure responsiveness */
+        height: 600px !important; /* Increase height */
+        border: 2px solid #ccc !important; /* Add subtle border */
+        border-radius: 8px !important; /* Slight rounding for aesthetics */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1) !important; /* Light shadow */
+        padding: 10px !important;
+      }
     </style>
 </head>
 <body>
@@ -54,44 +62,44 @@
     <main>
         <h2>Work Samples</h2>
         <p>The following research examples demonstrate valuable cross-organizational collaboration and strategic direction during the 'Problem Discovery' or 'Validation Stage,' where teams conduct interviews, market analysis, and small experiments to inform their next steps."</p>
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
-        <tr>
-            <th>Background Info</th>
-            <th>Presentation Deck</th>
-        </tr>
-    </thead>
-    <tbody>
+        
+        <!-- Optimized Table -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Background Info</th>
+                    <th>Presentation Deck</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        <!-- Row 1: AI Workloads - DX Research -->
-        <tr>
-            <td>
-                <p><strong>AI Workloads - DX Research</strong></p>
-                <p>This research was a crucial piece of a larger initiative exploring AI-powered workloads...</p>
-                <p>Key findings highlighted the growing demand for AI-driven recommendations, simplified interfaces...</p>
-                <p>The study highlights the growing demand for AI-powered optimization tools...</p>
-            </td>
-            <td>
-                <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html">
-                </iframe>
-            </td>
-        </tr>
+                <!-- Row 1: AI Workloads - DX Research -->
+                <tr>
+                    <td>
+                        <p><strong>AI Workloads - DX Research</strong></p>
+                        <p>This research was a crucial piece of a larger initiative exploring AI-powered workloads...</p>
+                        <p>Key findings highlighted the growing demand for AI-driven recommendations, simplified interfaces...</p>
+                        <p>The study highlights the growing demand for AI-powered optimization tools...</p>
+                    </td>
+                    <td class="pdf-frame-container">
+                        <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html"></iframe>
+                    </td>
+                </tr>
 
-        <!-- Row 2: AI Distributed Cloud Research -->
-        <tr>
-            <td>
-                <p><strong>AI in Distributed Cloud - DX Research</strong></p>
-                <p>The "AI Distributed Cloud Research" study specifically focused on understanding the evolving needs...</p>
-                <p>Findings highlight the growing need for AI-powered cloud optimization tools...</p>
-            </td>
-            <td>
-                <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html">
-                </iframe>
-            </td>
-        </tr>
+                <!-- Row 2: AI Distributed Cloud Research -->
+                <tr>
+                    <td>
+                        <p><strong>AI in Distributed Cloud - DX Research</strong></p>
+                        <p>The "AI Distributed Cloud Research" study specifically focused on understanding the evolving needs...</p>
+                        <p>Findings highlight the growing need for AI-powered cloud optimization tools...</p>
+                    </td>
+                    <td class="pdf-frame-container">
+                        <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html"></iframe>
+                    </td>
+                </tr>
 
-    </tbody>
-</table>
+            </tbody>
+        </table>
     </main>
 </div>
 
