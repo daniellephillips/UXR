@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Work Samples</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Section Title Styling */
+        .section-title {
+            border-left: 5px solid #007bff;
+            padding-left: 10px;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* PDF Frame Container */
+        .pdf-frame-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* PDF iFrame Styling */
+        .pdf-frame {
+            width: 900px;
+            max-width: 100%;
+            height: 600px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        /* Table Cell Styling */
+        td {
+            vertical-align: top;
+            padding: 1.5rem;
+        }
+
+        /* Centered header */
+        .header-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Table Header Styling */
+        .table thead th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="text-dark text-decoration-none text-center d-flex flex-column">
+            <span class="fs-3 fw-bold">DANIELLE PHILLIPS</span>
+            <span class="fs-5 text-muted">Senior UX Research and Design</span>
+        </a>
+    </header>
+</div>
+
+<div class="container">
+    <main>
+        <h2>Work Samples</h2>
+        <p>The following research examples demonstrate valuable cross-organizational collaboration and strategic direction during the 'Problem Discovery' or 'Validation Stage,' where teams conduct interviews, market analysis, and small experiments to inform their next steps.</p>
+
+        <!-- Work Samples Table -->
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Background Info</th>
+                    <th>Presentation Deck</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- Row 1: AI Strategy & Competitive Analysis -->
+                <tr>
+                    <td class="p-4">
+                        <h5 class="fw-bold text-primary">AI Strategy & Competitive Analysis</h5>
+                        <h5 class="text-secondary">for Intel Analyzers and Optimization Tools</span></h5>
+                        <p class="text-muted">January – March 2024</p>
+
+                        <p>As the <strong>Lead UX Researcher</strong>, I drove and delivered this strategic discovery initiative to inform the long-term direction of how Intel's suite of Optimization Tools would cater to our customers' AI workloads, as well as how our tools would leverage AI to drive better adoption.  AI-powered software platform. With a specialized but high-value user base, the goal was to understand:</p>
+
+                        <ul class="mb-4">
+                            <li>How industry experts perceive current challenges and opportunities</li>
+                            <li>Where competitors are leveraging AI</li>
+                            <li>How our platform and AI strategy should evolve to meet user needs</li>
+                        </ul>
+
+                        <h5 class="section-title text-primary">Approach</h5>
+                        <p>With a dedicated budget and a team of contributors, I designed and executed a multi-phase research study, including:</p>
+
+                        <ul>
+                            <li>Stakeholder and expert interviews to surface key themes</li>
+                            <li>Competitive analysis to identify trends in AI adoption</li>
+                            <li>User research to understand AI-driven behaviors and expectations</li>
+                            <li>Qualitative synthesis using analysis tools to uncover patterns</li>
+                        </ul>
+
+                        <h5 class="section-title text-primary">Impact & Execution</h5>
+                        <p>This research directly influenced the next phase of AI development, aligning leadership on strategic priorities. The insights guided execution agreements during product planning, translating research findings into:</p>
+
+                        <ul>
+                            <li>Product requirements</li>
+                            <li>Feature definitions</li>
+                            <li>User stories for development</li>
+                        </ul>
+
+                        <p>The findings were delivered in a comprehensive insights deck, supplemented by:</p>
+
+                        <ul>
+                            <li>Detailed project plan</li>
+                            <li>Interview guide and methodology</li>
+                            <li>Transcripts and coded qualitative data</li>
+                        </ul>
+
+                        <p>This initiative helped define AI’s role in the product roadmap, ensuring that development efforts aligned with user needs and business goals.</p>
+                    </td>
+                    <td class="pdf-frame-container">
+                        <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html"></iframe>
+                    </td>
+                </tr>
+
+                <!-- Row 2: AI in Distributed Cloud Research -->
+                <tr>
+                    <td class="p-4">
+                        <h3 class="fw-bold text-primary">AI in Distributed Cloud - DX Research</h3>
+                        <p>The "AI Distributed Cloud Research" study specifically focused on understanding the evolving needs...</p>
+                        <p>Findings highlight the growing need for AI-powered cloud optimization tools...</p>
+                    </td>
+                    <td class="pdf-frame-container">
+                        <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html"></iframe>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </main>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
