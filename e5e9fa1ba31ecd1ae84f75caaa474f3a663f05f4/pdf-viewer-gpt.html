@@ -28,14 +28,15 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: 80vh; /* Adjusted height to maintain visibility */
+            height: calc(100vh - 100px); /* Subtract controls height */
+            overflow: hidden; /* Prevent extra scroll */
         }
         canvas {
             display: block;
             background: white;
             width: 100%;
-            height: auto;
-            max-width: 100%;
+            height: 100%; /* Allow it to take full height */
+            object-fit: contain; /* Ensure proper scaling */
         }
     </style>
 </head>
@@ -84,25 +85,24 @@
             pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport({ scale: scale });
 
-                // Ensure high-resolution rendering
+                // Get the available space in the container
+                let container = document.querySelector('.pdf-container');
+                let containerWidth = container.clientWidth;
+                let containerHeight = container.clientHeight;
+
+                // Dynamically scale based on the available width & height
+                let newScale = Math.min(containerWidth / viewport.width, containerHeight / viewport.height);
+
                 var outputScale = window.devicePixelRatio || 1;
-
-                // Adjust canvas to PDF dimensions while keeping it responsive
-                let containerWidth = document.querySelector('.pdf-container').clientWidth;
-                let newScale = containerWidth / viewport.width;
-
                 canvas.width = Math.floor(viewport.width * outputScale * newScale);
                 canvas.height = Math.floor(viewport.height * outputScale * newScale);
 
                 // Maintain aspect ratio without warping
                 canvas.style.width = "100%";
-                canvas.style.height = "auto";
+                canvas.style.height = "100%";
 
-                // Reset transformations
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Scale rendering for high resolution
                 ctx.scale(outputScale * newScale, outputScale * newScale);
 
                 var renderContext = {
