@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +7,10 @@
     <title>PDF Viewer</title>
 
     <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.mjs" type="module"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 
     <style>
+        /* General styling */
         body {
             text-align: center;
             font-family: Arial, sans-serif;
@@ -17,96 +19,160 @@
             padding: 0;
         }
 
+        /* PDF navigation controls */
+        .pdf-controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* PDF canvas */
         canvas {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
             display: block;
             margin: 0 auto;
             background: white;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 100%;
-            height: auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .pdf-controls {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div>
+    <!-- PDF Controls -->
+    <div class="pdf-controls">
         <button id="prev">Previous</button>
-        <button id="next">Next</button>
-        &nbsp; &nbsp;
         <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+        <button id="next">Next</button>
     </div>
 
+    <!-- PDF Display Canvas -->
     <canvas id="the-canvas"></canvas>
 
+    <!-- PDF.js Rendering Script -->
     <script type="module">
+        var url = 'https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research for AI Workloads & NVIDIA Nsight Users.pdf';
+
         var { pdfjsLib } = globalThis;
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.mjs';
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
 
-        function getQueryParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
+        var pdfDoc = null,
+            pageNum = 1,
+            pageRendering = false,
+            pageNumPending = null,
+            scale = 1.0,  // Base scale factor
+            canvas = document.getElementById('the-canvas'),
+            ctx = canvas.getContext('2d');
+
+        function setScale() {
+            let screenWidth = window.innerWidth;
+            scale = screenWidth < 768 ? 1.0 : 1.5; // Adjust scale for mobile and desktop
         }
 
-        const url = getQueryParam("pdf");
+        function renderPage(num) {
+            pageRendering = true;
+            setScale();  // Adjust scale dynamically
 
-        if (!url) {
-            alert("Error: No PDF specified.");
-            document.body.innerHTML = "<h2>Error: No PDF file provided.</h2>";
-        } else {
-            let pdfDoc = null,
-                pageNum = 1,
-                scale = 1.5,
-                canvas = document.getElementById('the-canvas'),
-                ctx = canvas.getContext('2d');
+            pdfDoc.getPage(num).then(function(page) {
+                let viewport = page.getViewport({ scale: scale });
 
-            function renderPage(num) {
-                pdfDoc.getPage(num).then(function(page) {
-                    let viewport = page.getViewport({ scale });
+                // Improve resolution by setting a high DPI scale factor
+                let outputScale = window.devicePixelRatio || 1;
+                let scaledViewport = page.getViewport({ scale: scale * outputScale });
 
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    canvas.style.width = viewport.width + "px";
-                    canvas.style.height = viewport.height + "px";
+                // Set canvas dimensions
+                canvas.width = scaledViewport.width;
+                canvas.height = scaledViewport.height;
+                canvas.style.width = viewport.width + "px";
+                canvas.style.height = viewport.height + "px";
 
-                    let renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport
-                    };
+                let renderContext = {
+                    canvasContext: ctx,
+                    viewport: scaledViewport
+                };
 
-                    page.render(renderContext);
+                let renderTask = page.render(renderContext);
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                    if (pageNumPending !== null) {
+                        renderPage(pageNumPending);
+                        pageNumPending = null;
+                    }
                 });
-
-                document.getElementById('page_num').textContent = num;
-            }
-
-            function queueRenderPage(num) {
-                if (pdfDoc) {
-                    renderPage(num);
-                }
-            }
-
-            document.getElementById('prev').addEventListener('click', function() {
-                if (pageNum > 1) {
-                    pageNum--;
-                    queueRenderPage(pageNum);
-                }
             });
 
-            document.getElementById('next').addEventListener('click', function() {
-                if (pageNum < pdfDoc.numPages) {
-                    pageNum++;
-                    queueRenderPage(pageNum);
-                }
-            });
-
-            pdfjsLib.getDocument(decodeURIComponent(url)).promise.then(function(pdfDoc_) {
-                pdfDoc = pdfDoc_;
-                document.getElementById('page_count').textContent = pdfDoc.numPages;
-                queueRenderPage(pageNum);
-            });
+            document.getElementById('page_num').textContent = num;
         }
+
+        function queueRenderPage(num) {
+            if (pageRendering) {
+                pageNumPending = num;
+            } else {
+                renderPage(num);
+            }
+        }
+
+        function onPrevPage() {
+            if (pageNum <= 1) {
+                return;
+            }
+            pageNum--;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('prev').addEventListener('click', onPrevPage);
+
+        function onNextPage() {
+            if (pageNum >= pdfDoc.numPages) {
+                return;
+            }
+            pageNum++;
+            queueRenderPage(pageNum);
+        }
+        document.getElementById('next').addEventListener('click', onNextPage);
+
+        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.getElementById('page_count').textContent = pdfDoc.numPages;
+            renderPage(pageNum);
+        });
+
+        window.addEventListener('resize', function() {
+            queueRenderPage(pageNum);
+        });
     </script>
+
 </body>
 </html>
