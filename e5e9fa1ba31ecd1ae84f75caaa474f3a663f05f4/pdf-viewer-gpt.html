@@ -13,11 +13,9 @@
             font-family: Arial, sans-serif;
         }
         canvas {
-            width: 100%;
-            height: auto;
-            max-width: 100%;
             display: block;
             margin: 0 auto;
+            background: white;
         }
         .pdf-controls {
             margin: 20px 0;
@@ -31,7 +29,8 @@
     </style>
 </head>
 <body>
- <div class="pdf-controls">
+
+    <div class="pdf-controls">
         <button id="prev">Previous</button>
         <button id="next">Next</button>
         &nbsp; &nbsp;
@@ -50,13 +49,13 @@
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 2.5, // Maintain high quality without distortion
+            scale = 2.0, // Best balance between quality & performance
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
 
         function setScale() {
             let screenWidth = window.innerWidth;
-            scale = screenWidth < 768 ? 1.5 : 2.5; // Adjusted scale for better quality
+            scale = screenWidth < 768 ? 1.5 : 2.0; // Maintain good resolution without distortion
         }
 
         function renderPage(num) {
@@ -66,18 +65,22 @@
             pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport({ scale: scale });
 
-                // Set canvas to high resolution
+                // Use devicePixelRatio to ensure sharp rendering on high-DPI screens
                 var outputScale = window.devicePixelRatio || 1;
+
+                // Ensure canvas is set correctly
                 canvas.width = Math.floor(viewport.width * outputScale);
                 canvas.height = Math.floor(viewport.height * outputScale);
-                canvas.style.width = viewport.width + "px";  // Ensures correct aspect ratio
-                canvas.style.height = viewport.height + "px"; // Prevents warping
 
-                // Reset the canvas transformation matrix before rendering
+                // Apply styles to match original PDF aspect ratio
+                canvas.style.width = viewport.width + "px";
+                canvas.style.height = viewport.height + "px";
+
+                // Reset transform to avoid distortions
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Apply scale only to the drawing, not the canvas size
+                // Scale only the drawing context, not the canvas itself
                 ctx.scale(outputScale, outputScale);
 
                 var renderContext = {
@@ -135,6 +138,5 @@
             queueRenderPage(pageNum);
         });
     </script>
-
 </body>
 </html>
