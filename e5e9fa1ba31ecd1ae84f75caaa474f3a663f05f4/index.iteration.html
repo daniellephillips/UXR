@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,114 +6,114 @@
     <title>Work Samples</title>
 
     <!-- Bootstrap core CSS (Minified for better performance) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <style>
-/* General Styles */
-body {
-    background-color: #f8f9fa;
-}
+        /* General Styles */
+        body {
+            background-color: #f8f9fa;
+        }
 
-/* Ensures the left column is flexible */
-.flex-grow-1 {
-    flex-grow: 1;
-    min-width: 300px;
-}
+        /* Ensures the left column is flexible */
+        .flex-grow-1 {
+            flex-grow: 1;
+            min-width: 300px;
+        }
 
-/* Styles for the PDF container */
+        /* Styles for the PDF container */
+        .pdf-frame-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-width: 300px;
+            max-width: 100%;
+            min-height: 75vh; /* Ensure it expands properly */
+            height: auto; /* Allows dynamic height */
+        }
 
-.pdf-frame-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-width: 300px;
-    max-width: 100%;
-    min-height: 75vh;  /* Ensure it expands properly */
-    height: auto;  /* Allows dynamic height */
-}
+        /* Styles for the PDF iframe */
+        .pdf-frame {
+            width: 100%;
+            height: 100%;
+            min-height: 75vh;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-/* Styles for the PDF iframe */
-.pdf-frame {
-    width: 100%;
-    height: 100%;
-    min-height: 75vh; /* Ensures it's large enough */
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
+        /* Section title styling */
+        .section-title {
+            border-left: 5px solid #007bff;
+            padding-left: 10px;
+            font-weight: bold;
+            margin: 1.5rem 0 1rem;
+        }
 
-/* Section title styling */
-.section-title {
-    border-left: 5px solid #007bff;
-    padding-left: 10px;
-    font-weight: bold;
-    margin: 1.5rem 0 1rem;
-}
+        /* Table styles */
+        .table-responsive {
+            overflow-x: auto;
+        }
 
-/* Table styles */
-.table-responsive {
-    overflow-x: auto;
-}
+        .table td, .table th {
+            word-wrap: break-word;
+            white-space: normal;
+        }
 
-.table td, .table th {
-    word-wrap: break-word;
-    white-space: normal;
-}
+        .header-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-.header-container {
-    text-align: center;
-    margin-bottom: 20px;
-}
+        .table thead th {
+            text-align: center;
+        }
 
-.table thead th {
-    text-align: center;
-}
+        /* Improved responsiveness for Background Info column */
+        .fixed-col {
+            max-width: 550px;
+            width: 100%;
+            white-space: normal;
+            vertical-align: top;
+        }
 
-/* Fixed width for Background Info column */
-.fixed-col {
-    width: 550px;
-    white-space: nowrap;
-    vertical-align: top;
-}
+        /* Flexible width for Presentation Deck column */
+        .flex-col {
+            width: auto;
+            white-space: normal;
+            word-wrap: break-word;
+        }
 
-/* Flexible width for Presentation Deck column */
-.flex-col {
-    width: auto;
-    white-space: normal;
-    word-wrap: break-word;
-}
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 992px) {
+            .pdf-frame-container {
+                height: 60vh; /* Adjust height for smaller screens */
+                max-width: 100%;
+            }
 
-/* Responsive adjustments for smaller screens */
-@media (max-width: 992px) {
-    .pdf-frame-container {
-        height: 60vh; /* Adjust height for smaller screens */
-        max-width: 100%;
-    }
+            .pdf-frame {
+                min-height: 60vh;
+            }
 
-    .pdf-frame {
-        min-height: 60vh;
-    }
+            .fixed-col {
+                width: 100%;
+                white-space: normal;
+            }
+        }
 
-    .fixed-col {
-        width: 100%; /* Allow full width for smaller screens */
-        white-space: normal;
-    }
-}
+        @media (max-width: 768px) {
+            .pdf-frame-container {
+                height: 50vh; /* Reduce height for mobile */
+            }
 
-@media (max-width: 768px) {
-    .pdf-frame-container {
-        height: 50vh; /* Reduce height for mobile */
-    }
-
-    .pdf-frame {
-        min-height: 50vh;
-    }
-}
+            .pdf-frame {
+                min-height: 50vh;
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,8 +130,9 @@ body {
 <div class="container">
     <main>
         <h2>Work Samples</h2>
-<p>I personally developed and delivered the following presentations, incorporating key insights from project stakeholders. These materials were strategically shared with partner teams and executive leadership to inform decision-making ahead of the Product Concept stage.</p> 
-<span><mark>Best viewed on desktop. Slide presentations are not optimized for mobile.</mark></span>
+        <p>I personally developed and delivered the following presentations, incorporating key insights from project stakeholders. These materials were strategically shared with partner teams and executive leadership to inform decision-making ahead of the Product Concept stage.</p>
+        <span><mark>Best viewed on desktop. Slide presentations are not optimized for mobile.</mark></span>
+        
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
@@ -150,82 +150,43 @@ body {
                             <p>Led AI research for Intel’s system optimization tools, enhancing customer experience and AI workload performance. Partnered with product management to shape the roadmap for Intel oneAPI products.</p>
 
                             <p><strong>Key Contributions & Actions</strong></p>
-                            <ul class="list-group" style="padding-left: 20px;">
+                            <ul class="list-group">
                                 <li><strong>Stakeholder Alignment:</strong> Engaged product, engineering, and research teams to align AI research goals and secure investment.</li>
-                               <li><strong>Competitive & User Analysis:</strong>Assessed customer needs, AI workloads, and industry gaps to identify innovation opportunities.</li>
-                                <li><strong>Research & Validation:</strong>Conducted qualitative studies, stakeholder interviews, and benchmarking to validate key findings.</li>
-                                 <li>Integrated research insights into Jira issue tracking for release planning.</li>
-                                <li><strong>Strategic Implementation:</strong>Mapped insights into product recommendations, user stories, and a scalable AI research framework.</li>
+                                <li><strong>Competitive & User Analysis:</strong> Assessed customer needs, AI workloads, and industry gaps to identify innovation opportunities.</li>
+                                <li><strong>Research & Validation:</strong> Conducted qualitative studies, stakeholder interviews, and benchmarking to validate key findings.</li>
+                                <li>Integrated research insights into Jira issue tracking for release planning.</li>
+                                <li><strong>Strategic Implementation:</strong> Mapped insights into product recommendations, user stories, and a scalable AI research framework.</li>
                             </ul>
-<p></p>
+
                             <p><strong>Impact and Results</strong></p>
-                            <ul class="list-group" style="padding-left: 20px;">
+                            <ul class="list-group">
                                 <li>Refined stakeholder assumptions and influenced Intel’s product strategy.</li>
-                                 <li>Translated research into Jira-backed action items for release planning.</li>
-                                 <li>Strengthened AI workload optimization, improving customer experience.</li>
+                                <li>Translated research into Jira-backed action items for release planning.</li>
+                                <li>Strengthened AI workload optimization, improving customer experience.</li>
                             </ul>
-                        </td>
-                       <td class="pdf-frame-container">
-                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/pdf-viewer-gpt.html"></iframe>
-                        </td>
-]
-                    </tr>
-                      <tr>
-                        <td class="fixed-col p-4">
-                            <h5 class="text-primary">VTune Modernization and Multinode Analysis</h5>
-                            <h6 class="text-secondary">Intel Optimization and Analysis Tools - VTune (Aug 2023)</h6>
-
-                             <p><strong>Overview</strong></p>
-                            <p>Partnered with product management to modernize VTune into a SaaS platform, enhancing multi-node performance profiling for cloud environments. Led research on market demand, usability challenges, and competitive landscape.</p>
-
-                                <p><strong>Key Contributions & Actions</strong></p>
-                                 <ul class="list-group" style="padding-left: 20px;">
-                                <li><strong>User Research & Testing:</strong>Conducted a 12-session usability study to identify key pain points: login issues, navigation inconsistencies, and workflow inefficiencies.</li>
-                                <li><strong>Competitive & Market Analysis:</strong>Evaluated Datadog, Azure Monitor, and Grafana, uncovering gaps in usability, automation, and multi-node support.</strong></li>
-                                <li><strong>Data-Driven Roadmap Influence:</strong> Provided insights that shaped WTPK’s product roadmap and secured investment for UX improvements.</li>
-                                <li><strong>Implementation & Adoption:</strong>Developed Jira-backed action items for seamless integration. Secured funding for prototyping and iterative UX enhancements.</li>
-                                 </ul>
-                                <p></p>
-                                 <p><strong>Impact & Results</strong></p>
-                                <ul class="list-group" style="padding-left: 20px;">
-                                <li>Enhanced usability, automation, and multi-node support, influencing Intel’s cloud profiling strategy.</li>
-                                <li>Validated market opportunities and drove investment in next-gen cloud analysis tools.</li>
-                                <li>Secured stakeholder buy-in for continued research and development.</li>
-                                
-                                 </ul>
-                                <p>Through this initiative, I successfully aligned internal teams, validated market opportunities, and ensured research insights directly informed Intel’s next-generation cloud profiling tools.</p>
-
-
-
                         </td>
                         <td class="pdf-frame-container">
-                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case5x.html"></iframe>
+                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/pdf-viewer-gpt.html" sandbox="allow-scripts allow-same-origin">
+                                <p>Your browser does not support iframes. <a href="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/pdf-viewer-gpt.html">View PDF</a></p>
+                            </iframe>
                         </td>
-
                     </tr>
 
-                    <!--  <tr>
+                    <!-- <tr>
                         <td class="fixed-col p-4">
                             <h5 class="text-primary">Project Name</h5>
                             <h6 class="text-secondary">Intel Optimization and Analysis Tools - VTune</h6>
                             <p class="text-muted">Date</p>
-
                             <p><strong>Overview</strong></p>
-                            <p>describe overview</p>
-
-<p><strong>Key Contributions & Actions</strong></p>
- <ul class="list-group" style="padding-left: 20px;">
-<li>Led a cross-functional research initiative, ensuring data-driven, actionable insights.</li>
- </ul>
-<p></p>
- <p><strong>Impact & Results</strong></p>
-<ul class="list-group" style="padding-left: 20px;">
-<li>Influenced Intel’s cloud-based performance analysis strategy, improving usability, automation, and multi-node support.</li>
- </ul>
-<p>T</p>
-                        </td>
-                        <td class="flex-col pdf-frame-container">
-                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case6x.html"></iframe>
+                            <p>Describe overview</p>
+                            <p><strong>Key Contributions & Actions</strong></p>
+                            <ul class="list-group">
+                                <li>Led a cross-functional research initiative, ensuring data-driven, actionable insights.</li>
+                            </ul>
+                            <p><strong>Impact & Results</strong></p>
+                            <ul class="list-group">
+                                <li>Influenced Intel’s cloud-based performance analysis strategy.</li>
+                            </ul>
                         </td>
                     </tr> -->
                 </tbody>
@@ -234,26 +195,7 @@ body {
     </main>
 </div>
 
-<!-- Bootstrap JS (Minified for better performance) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
-        crossorigin="anonymous" defer></script>
-
-<!-- Statcounter Analytics with Improved Privacy -->
-<script type="text/javascript">
-var sc_project=13086890; 
-var sc_invisible=1; 
-var sc_security="4725b6fb"; 
-</script>
-<script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async referrerpolicy="no-referrer-when-downgrade"></script>
-<noscript>
-    <div class="statcounter">
-        <a title="Web Analytics" href="https://statcounter.com/" target="_blank">
-            <img class="statcounter" src="https://c.statcounter.com/13086890/0/4725b6fb/1/" alt="Web Analytics" referrerpolicy="no-referrer-when-downgrade">
-        </a>
-    </div>
-</noscript>
-<!-- End of Statcounter Code -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
 </body>
 </html>
