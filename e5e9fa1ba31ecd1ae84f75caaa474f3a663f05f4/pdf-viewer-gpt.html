@@ -6,7 +6,7 @@
     <title>PDF Viewer</title>
 
     <!-- PDF.js -->
-    <script src="//mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.mjs" type="module"></script>
 
     <style>
         /* General styling */
@@ -43,91 +43,72 @@
     <canvas id="the-canvas"></canvas>
 
     <script type="module">
-        var url = 'https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research for AI Workloads & NVIDIA Nsight Users.pdf';
+        import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.mjs';
 
-        var { pdfjsLib } = globalThis;
-        pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+        // Set up the worker for PDF.js
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.mjs';
 
-        var pdfDoc = null,
+        const url = 'https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research for AI Workloads & NVIDIA Nsight Users.pdf';
+
+        let pdfDoc = null,
             pageNum = 1,
-            pageRendering = false,
-            scale = 1.5,  // Default scale for clarity
+            scale = 1.5,
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
 
         function renderPage(num) {
-            pageRendering = true;
-
             pdfDoc.getPage(num).then(function(page) {
-                // Get the device's pixel ratio for high-DPI rendering
-                let outputScale = window.devicePixelRatio || 1;
-                
-                // Get the viewport while maintaining aspect ratio
-                let viewport = page.getViewport({ scale: scale });
-                let scaledViewport = page.getViewport({ scale: scale * outputScale });
+                let viewport = page.getViewport({ scale });
 
-                // Maintain aspect ratio
-                let aspectRatio = viewport.width / viewport.height;
-                let newWidth = canvas.parentElement.clientWidth * 0.95; // 95% of container width
-                let newHeight = newWidth / aspectRatio;
-
-                // Set canvas size for high resolution
-                canvas.width = newWidth * outputScale;
-                canvas.height = newHeight * outputScale;
-                canvas.style.width = newWidth + "px";
-                canvas.style.height = newHeight + "px";
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+                canvas.style.width = viewport.width + "px";
+                canvas.style.height = viewport.height + "px";
 
                 let renderContext = {
                     canvasContext: ctx,
-                    viewport: scaledViewport
+                    viewport: viewport
                 };
 
-                let renderTask = page.render(renderContext);
-                renderTask.promise.then(function() {
-                    pageRendering = false;
-                });
+                page.render(renderContext);
             });
 
             document.getElementById('page_num').textContent = num;
         }
 
         function queueRenderPage(num) {
-            if (!pageRendering) {
+            if (pdfDoc) {
                 renderPage(num);
             }
         }
 
-        function onPrevPage() {
-            if (pageNum <= 1) {
-                return;
+        document.getElementById('prev').addEventListener('click', function() {
+            if (pageNum > 1) {
+                pageNum--;
+                queueRenderPage(pageNum);
             }
-            pageNum--;
-            queueRenderPage(pageNum);
-        }
-        document.getElementById('prev').addEventListener('click', onPrevPage);
+        });
 
-        function onNextPage() {
-            if (pageNum >= pdfDoc.numPages) {
-                return;
+        document.getElementById('next').addEventListener('click', function() {
+            if (pageNum < pdfDoc.numPages) {
+                pageNum++;
+                queueRenderPage(pageNum);
             }
-            pageNum++;
-            queueRenderPage(pageNum);
-        }
-        document.getElementById('next').addEventListener('click', onNextPage);
+        });
 
         pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
             pdfDoc = pdfDoc_;
             document.getElementById('page_count').textContent = pdfDoc.numPages;
-            renderPage(pageNum);
+            queueRenderPage(pageNum);
         });
 
-        // Debounced resize event to prevent excessive re-rendering
+        // Optimize re-rendering on resize
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 queueRenderPage(pageNum);
-            }, 300);
+            }, 500);
         });
     </script>
 
