@@ -66,11 +66,16 @@
                 let viewport = page.getViewport({ scale: scale });
                 let scaledViewport = page.getViewport({ scale: scale * outputScale });
 
+                // Maintain aspect ratio
+                let aspectRatio = viewport.width / viewport.height;
+                let newWidth = canvas.parentElement.clientWidth * 0.95; // 95% of container width
+                let newHeight = newWidth / aspectRatio;
+
                 // Set canvas size for high resolution
-                canvas.width = scaledViewport.width;
-                canvas.height = scaledViewport.height;
-                canvas.style.width = viewport.width + "px";
-                canvas.style.height = viewport.height + "px";
+                canvas.width = newWidth * outputScale;
+                canvas.height = newHeight * outputScale;
+                canvas.style.width = newWidth + "px";
+                canvas.style.height = newHeight + "px";
 
                 let renderContext = {
                     canvasContext: ctx,
@@ -116,8 +121,13 @@
             renderPage(pageNum);
         });
 
+        // Debounced resize event to prevent excessive re-rendering
+        let resizeTimeout;
         window.addEventListener('resize', function() {
-            renderPage(pageNum);
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                queueRenderPage(pageNum);
+            }, 300);
         });
     </script>
 
