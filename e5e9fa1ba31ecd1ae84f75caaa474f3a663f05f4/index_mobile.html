@@ -14,65 +14,32 @@
             background-color: #f8f9fa;
         }
 
-        .section-title {
-            border-left: 5px solid #007bff;
-            padding-left: 10px;
-            font-weight: bold;
-            margin: 1.5rem 0 1rem;
+        .pdf-frame-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            min-width: 300px;
+            max-width: 100%;
+            min-height: 75vh;
+            height: auto;
         }
 
         .pdf-frame {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            height: 100%;
+            min-height: 75vh;
             border: 2px solid #ddd;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .table-responsive {
-            overflow-x: auto;
-        }
-
-        .table td, .table th {
-            word-wrap: break-word;
-            white-space: normal;
-        }
-
-        .header-container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .table thead th {
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .header-container {
-                text-align: center;
-            }
-            .fs-3 {
-                font-size: 1.5rem;
-            }
-            .fs-5 {
-                font-size: 1rem;
-            }
-            .table-responsive {
-                display: block;
-                overflow-x: auto;
-                width: 100%;
-            }
-            .pdf-frame {
-                min-height: 300px;
-            }
         }
     </style>
 </head>
 <body>
 
-<div class="container-fluid">
-    <header class="d-flex flex-column align-items-center py-3 mb-4 border-bottom">
-        <a href="/" class="text-dark text-decoration-none text-center">
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="text-dark text-decoration-none text-center d-flex flex-column">
             <span class="fs-3 fw-bold">DANIELLE PHILLIPS</span>
             <span class="fs-5 text-muted">Senior UX Research and Design</span>
         </a>
@@ -81,7 +48,10 @@
 
 <div class="container">
     <main>
-        <h2 class="text-center">Work Samples</h2>
+        <h2>Work Samples</h2>
+        <p>These materials were shared with executive leadership.</p>
+        <span><mark>Best viewed on desktop. Slide presentations are not optimized for mobile.</mark></span>
+
         <div class="table-responsive">
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
@@ -92,39 +62,15 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="p-4">
+                        <td>
                             <h5 class="text-primary">AI Strategy & Competitive Analysis</h5>
-                            <h6 class="text-secondary">Intel Optimization and Analysis Tools</h6>
-                            <p class="text-muted">January – March 2024</p>
-                            <p><strong>Overview</strong></p>
-                            <p>Led research on integrating AI into Intel’s System Optimization tools to enhance customer experience.</p>
-                            <p><strong>Key Contributions & Actions</strong></p>
-                            <ul class="list-group">
-                                <li>Engaged key internal stakeholders.</li>
-                                <li>Analyzed customer needs and AI workloads.</li>
-                                <li>Conducted competitor analysis.</li>
-                            </ul>
+                            <h6 class="text-secondary">Intel Optimization and Analysis Tools (Jan - Mar 2024)</h6>
                         </td>
-                        <td class="text-center">
-                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case4x.html"></iframe>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-4">
-                            <h5 class="text-primary">VTune Modernization and Multinode Analysis</h5>
-                            <h6 class="text-secondary">Intel Optimization and Analysis Tools - VTune</h6>
-                            <p class="text-muted">August 2023</p>
-                            <p><strong>Overview</strong></p>
-                            <p>Partnered with product management to modernize VTune into a SaaS product.</p>
-                            <p><strong>Key Contributions & Actions</strong></p>
-                            <ul class="list-group">
-                                <li>Led a cross-functional research initiative.</li>
-                                <li>Conducted usability studies.</li>
-                                <li>Mapped user mental models.</li>
-                            </ul>
-                        </td>
-                        <td class="text-center">
-                            <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/case5x.html"></iframe>
+                        <td class="pdf-frame-container">
+                            <iframe class="pdf-frame" 
+                                src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/pdf-viewer-gpt.html?pdf=https%3A%2F%2Fdaniellephillips.github.io%2FPassword-protection-for-static-pages-master2%2Fe5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4%2Fdocs%2FResearch%20for%20AI%20Workloads%20%26%20NVIDIA%20Nsight%20Users.pdf" 
+                                sandbox="allow-scripts allow-downloads allow-popups allow-same-origin">
+                            </iframe>
                         </td>
                     </tr>
                 </tbody>
@@ -133,7 +79,6 @@
     </main>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 
 </body>
