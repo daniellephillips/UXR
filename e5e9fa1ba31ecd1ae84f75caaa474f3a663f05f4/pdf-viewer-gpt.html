@@ -28,14 +28,14 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            height: calc(100vh - 100px); /* Adjust based on controls */
+            height: calc(100vh - 100px); /* Adjust for controls */
             overflow: hidden;
         }
         canvas {
             display: block;
             background: white;
-            width: 100%;
-            height: auto; /* Keep natural aspect ratio */
+            width: 100%; /* Ensures the browser scales it naturally */
+            height: auto; /* Prevents distortion */
         }
     </style>
 </head>
@@ -62,47 +62,51 @@
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 1.5, // Default scale for responsiveness
+            scale = 1.5, // Default scale
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
 
-        function setScale() {
-            let screenWidth = window.innerWidth;
-            scale = screenWidth < 768 ? 1.0 : 1.8; // Adjust scale dynamically
-        }
-
         function renderPage(num) {
             pageRendering = true;
-            setScale();
 
             pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport({ scale: scale });
 
+                // Get the actual pixel density (2x or 3x for Retina screens)
+                var outputScale = window.devicePixelRatio || 1;
+
+                // Get available space in the container
                 let container = document.querySelector('.pdf-container');
                 let containerWidth = container.clientWidth;
                 let containerHeight = container.clientHeight;
 
+                // Scale proportionally
                 let newScale = Math.min(containerWidth / viewport.width, containerHeight / viewport.height);
+                let finalScale = scale * newScale;
 
-                var outputScale = window.devicePixelRatio || 1;
-                canvas.width = Math.floor(viewport.width * outputScale * newScale);
-                canvas.height = Math.floor(viewport.height * outputScale * newScale);
+                viewport = page.getViewport({ scale: finalScale });
 
-                // Ensure it fills the available space but keeps proportions
+                // Set high-resolution canvas size (ensures sharp rendering)
+                canvas.width = Math.floor(viewport.width * outputScale);
+                canvas.height = Math.floor(viewport.height * outputScale);
+
+                // Display size remains responsive (browser scales it smoothly)
                 canvas.style.width = containerWidth + "px";
-                canvas.style.height = containerHeight + "px";
+                canvas.style.height = "auto";
 
+                // Reset transformation matrix and clear canvas
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.scale(outputScale * newScale, outputScale * newScale);
+
+                // Scale for high-resolution rendering
+                ctx.scale(outputScale, outputScale);
 
                 var renderContext = {
                     canvasContext: ctx,
-                    viewport: page.getViewport({ scale: scale * newScale })
+                    viewport: viewport
                 };
 
                 var renderTask = page.render(renderContext);
-
                 renderTask.promise.then(function() {
                     pageRendering = false;
                     if (pageNumPending !== null) {
