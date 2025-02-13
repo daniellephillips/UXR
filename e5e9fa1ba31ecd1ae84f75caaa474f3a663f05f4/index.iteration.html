@@ -14,30 +14,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <style>
-       body {
+/* General Styles */
+body {
     background-color: #f8f9fa;
 }
 
-/* Makes the left column flexible */
+/* Ensures the left column is flexible */
 .flex-grow-1 {
     flex-grow: 1;
     min-width: 300px;
 }
 
-/* Controls the PDF container's size */
+/* Styles for the PDF container */
 .pdf-frame-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-width: 300px; /* Prevents shrinking too much */
-    max-width: 40%;  /* Prevents growing too large */
+    min-width: 300px; /* Prevents it from shrinking too much */
+    max-width: 100%;  /* Allows full width if needed */
+    height: 75vh; /* Ensures the iframe has a visible height */
 }
 
 /* Styles for the PDF iframe */
 .pdf-frame {
     width: 100%;
-    min-height: 60vh; /* Flexible height */
+    height: 100%;
+    min-height: 75vh; /* Ensures it's large enough */
     border: 2px solid #ddd;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -82,6 +85,33 @@
     width: auto;
     white-space: normal;
     word-wrap: break-word;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 992px) {
+    .pdf-frame-container {
+        height: 60vh; /* Adjust height for smaller screens */
+        max-width: 100%;
+    }
+
+    .pdf-frame {
+        min-height: 60vh;
+    }
+
+    .fixed-col {
+        width: 100%; /* Allow full width for smaller screens */
+        white-space: normal;
+    }
+}
+
+@media (max-width: 768px) {
+    .pdf-frame-container {
+        height: 50vh; /* Reduce height for mobile */
+    }
+
+    .pdf-frame {
+        min-height: 50vh;
+    }
 }
     </style>
 </head>
@@ -136,7 +166,7 @@
                        <td class="pdf-frame-container">
                             <iframe class="pdf-frame" src="https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/amobile-pdf-view.html"></iframe>
                         </td>
- 
+]
                     </tr>
                       <tr>
                         <td class="fixed-col p-4">
