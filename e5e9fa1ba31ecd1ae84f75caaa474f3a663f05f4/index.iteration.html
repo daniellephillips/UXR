@@ -26,14 +26,16 @@ body {
 }
 
 /* Styles for the PDF container */
+
 .pdf-frame-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    min-width: 300px; /* Prevents it from shrinking too much */
-    max-width: 100%;  /* Allows full width if needed */
-    height: 75vh; /* Ensures the iframe has a visible height */
+    min-width: 300px;
+    max-width: 100%;
+    min-height: 75vh;  /* Ensure it expands properly */
+    height: auto;  /* Allows dynamic height */
 }
 
 /* Styles for the PDF iframe */
