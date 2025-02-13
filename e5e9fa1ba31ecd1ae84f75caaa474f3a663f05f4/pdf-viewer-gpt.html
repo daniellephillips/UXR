@@ -45,71 +45,70 @@
     <script type="module">
         import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.mjs';
 
-        // Set up the worker for PDF.js
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.mjs';
 
-        const url = 'https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/https://daniellephillips.github.io/Password-protection-for-static-pages-master2/e5e9fa1ba31ecd1ae84f75caaa474f3a663f05f4/docs/Research%20for%20AI%20Workloads%20&%20NVIDIA%20Nsight%20Users.pdf';
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
 
-        let pdfDoc = null,
-            pageNum = 1,
-            scale = 1.5,
-            canvas = document.getElementById('the-canvas'),
-            ctx = canvas.getContext('2d');
+        const url = getQueryParam("pdf");
 
-        function renderPage(num) {
-            pdfDoc.getPage(num).then(function(page) {
-                let viewport = page.getViewport({ scale });
+        if (!url) {
+            alert("Error: No PDF specified.");
+        } else {
+            let pdfDoc = null,
+                pageNum = 1,
+                scale = 1.5,
+                canvas = document.getElementById('the-canvas'),
+                ctx = canvas.getContext('2d');
 
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                canvas.style.width = viewport.width + "px";
-                canvas.style.height = viewport.height + "px";
+            function renderPage(num) {
+                pdfDoc.getPage(num).then(function(page) {
+                    let viewport = page.getViewport({ scale });
 
-                let renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    canvas.style.width = viewport.width + "px";
+                    canvas.style.height = viewport.height + "px";
 
-                page.render(renderContext);
+                    let renderContext = {
+                        canvasContext: ctx,
+                        viewport: viewport
+                    };
+
+                    page.render(renderContext);
+                });
+
+                document.getElementById('page_num').textContent = num;
+            }
+
+            function queueRenderPage(num) {
+                if (pdfDoc) {
+                    renderPage(num);
+                }
+            }
+
+            document.getElementById('prev').addEventListener('click', function() {
+                if (pageNum > 1) {
+                    pageNum--;
+                    queueRenderPage(pageNum);
+                }
             });
 
-            document.getElementById('page_num').textContent = num;
+            document.getElementById('next').addEventListener('click', function() {
+                if (pageNum < pdfDoc.numPages) {
+                    pageNum++;
+                    queueRenderPage(pageNum);
+                }
+            });
+
+            pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+                pdfDoc = pdfDoc_;
+                document.getElementById('page_count').textContent = pdfDoc.numPages;
+                queueRenderPage(pageNum);
+            });
         }
-
-        function queueRenderPage(num) {
-            if (pdfDoc) {
-                renderPage(num);
-            }
-        }
-
-        document.getElementById('prev').addEventListener('click', function() {
-            if (pageNum > 1) {
-                pageNum--;
-                queueRenderPage(pageNum);
-            }
-        });
-
-        document.getElementById('next').addEventListener('click', function() {
-            if (pageNum < pdfDoc.numPages) {
-                pageNum++;
-                queueRenderPage(pageNum);
-            }
-        });
-
-        pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-            pdfDoc = pdfDoc_;
-            document.getElementById('page_count').textContent = pdfDoc.numPages;
-            queueRenderPage(pageNum);
-        });
-
-        // Optimize re-rendering on resize
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                queueRenderPage(pageNum);
-            }, 500);
-        });
     </script>
 
 </body>
