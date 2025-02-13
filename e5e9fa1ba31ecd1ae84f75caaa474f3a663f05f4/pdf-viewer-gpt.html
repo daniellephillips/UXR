@@ -31,8 +31,7 @@
     </style>
 </head>
 <body>
-
-    <div class="pdf-controls">
+ <div class="pdf-controls">
         <button id="prev">Previous</button>
         <button id="next">Next</button>
         &nbsp; &nbsp;
@@ -51,7 +50,7 @@
             pageNum = 1,
             pageRendering = false,
             pageNumPending = null,
-            scale = 2.5, // Increased scale for higher resolution
+            scale = 2.5, // Maintain high quality without distortion
             canvas = document.getElementById('the-canvas'),
             ctx = canvas.getContext('2d');
 
@@ -71,16 +70,20 @@
                 var outputScale = window.devicePixelRatio || 1;
                 canvas.width = Math.floor(viewport.width * outputScale);
                 canvas.height = Math.floor(viewport.height * outputScale);
-                canvas.style.width = viewport.width + "px";
-                canvas.style.height = viewport.height + "px";
+                canvas.style.width = viewport.width + "px";  // Ensures correct aspect ratio
+                canvas.style.height = viewport.height + "px"; // Prevents warping
+
+                // Reset the canvas transformation matrix before rendering
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Apply scale only to the drawing, not the canvas size
+                ctx.scale(outputScale, outputScale);
 
                 var renderContext = {
                     canvasContext: ctx,
                     viewport: viewport
                 };
-
-                // Ensure high-resolution rendering
-                ctx.scale(outputScale, outputScale);
 
                 var renderTask = page.render(renderContext);
 
